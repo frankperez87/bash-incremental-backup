@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Incremental Backup Script 
+# - Supports remote backup
+# Author: Frank Perez <frank@frankperez.net>
+
+if [ $# -eq 3 ]
+then
+	SOURCE_PATH=$1
+	DESTINATION_PATH=$2
+	RATE_LIMIT=$3
+else 
+	read -p "Source Path: " SOURCE_PATH 
+	read -p "Destination Path: " DESTINATION_PATH 
+	read -p "Transfer Rate in KB: " RATE_LIMIT 
+fi
+
+/usr/bin/rsync -varlHpAXogtz \
+		-b --backup-dir=.FPBACKUP/backup-`date +%F-%T` \
+		--delete-after \
+		--progress \
+		--bwlimit=$RATE_LIMIT \
+		--exclude=".FPBACKUP"\
+		$SOURCE_PATH $DESTINATION_PATH
+
+find $DESTINATION_PATH".FPBACKUP/" -maxdepth 1 -type d -name "backup*" -mtime +14 -exec rm -rf {} \;
