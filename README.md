@@ -9,7 +9,7 @@ ln -s src/fpbackup ~/bin/fpbackup
 chmod +x src/fpbackup
 ```
 
-##### To start the backup tool use as follows
+##### To start the backup tool in interactive mode use as follows
 ```
 fpbackup
 ```
@@ -24,4 +24,4 @@ fpbackup /path/to/source_directory /path/to/backup/folder 1024
 fpbackup /path/to/source_directory user@server:/path/to/backup/folder 1024
 ```
 
-** Note, that in order for this to work you must use SSH keys for authentication. **
+**Note, that in order for this to work you must use SSH keys for authentication.**
